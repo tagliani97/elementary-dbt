@@ -35,7 +35,7 @@ services:
       - "8001:8001"
     restart: always
     volumes:
-      - ./dbt:/jaffle_shop
+      - ./jaffle_shop:/root
       - ./dbt_realiability:/dbt_realiability
     depends_on:
       - postgres
