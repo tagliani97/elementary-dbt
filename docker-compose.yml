@@ -37,7 +37,6 @@ services:
     restart: always
     volumes:
       - ./jaffle_shop:/root
-      - ./dbt_realiability:/dbt_realiability
     depends_on:
       - postgres
     networks:
