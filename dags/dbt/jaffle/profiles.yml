@@ -1,0 +1,14 @@
+jaffle_shop:
+  target: dev
+  outputs:
+    dev:
+      type: postgres
+      host: postgres-dbt
+      user: admin
+      password: admin
+      port: 5432
+      dbname: postgres
+      schema: dbt
+
+
+could not translate host name "postgres-dbt" to address: Temporary failure in name resolution
