@@ -17,7 +17,6 @@ renamed as (
         status
 
     from source
-    where order_date = '{{ var("execution_date") }}'
 
 )
 

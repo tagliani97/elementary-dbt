@@ -1,8 +1,8 @@
 version: '3.8'
 x-airflow-common:
   &airflow-common
-  # image: ${AIRFLOW_IMAGE_NAME:-apache/airflow:2.7.3}
-  build: .
+  image: ${AIRFLOW_IMAGE_NAME:-apache/airflow:2.7.3}
+  # build: .
   environment:
     &airflow-common-env
     AIRFLOW__CORE__EXECUTOR: CeleryExecutor
@@ -247,16 +247,9 @@ services:
       - /var/run/docker.sock:/var/run/docker.sock:ro
     restart: always
 
-  postgres-dbt:
-    image: postgres
-    ports:
-      - "5438:5432"
-    command: postgres -c max_connections=500
-    environment:
-      POSTGRES_USER: admin
-      POSTGRES_PASSWORD: admin
-    volumes:
-      - postgres:/var/lib/postgresql/data
+networks:
+  dbt-teste:
+    external: true
 
 volumes:
   postgres-db-volume:

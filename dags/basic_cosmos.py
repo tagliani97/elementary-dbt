@@ -1,13 +1,8 @@
-"""
-An example DAG that uses Cosmos to render a dbt project.
-"""
-
-import os
 from datetime import datetime
-from pathlib import Path
 
-from cosmos import DbtDag, ProjectConfig, ProfileConfig
+from cosmos import DbtDag, ProjectConfig, ProfileConfig, RenderConfig, LoadMode, ProjectConfig
 from cosmos.profiles import PostgresUserPasswordProfileMapping
+
 
 profile_config = ProfileConfig(
     profile_name="jaffle_shop",
@@ -18,22 +13,18 @@ profile_config = ProfileConfig(
     ),
 )
 
-# [START local_example]
 basic_cosmos_dag = DbtDag(
-    # dbt/cosmos-specific parameters
-    project_config=ProjectConfig(
-        "/opt/airflow/dags/dbt/jaffle"
-    ),
+    project_config=ProjectConfig(manifest_path="/opt/airflow/dags/dbt/jaffle/target/manifest.json", project_name="jaffle_shop", dbt_project_path="/opt/airflow/dags/dbt/jaffle/"),
+    render_config=RenderConfig(load_method=LoadMode.DBT_MANIFEST, ),
     profile_config=profile_config,
     operator_args={
-        "install_deps": False,  # install any necessary dependencies before running any dbt command
-        "full_refresh": False,  # used only in dbt commands that support this flag
+        "install_deps": False,
+        "full_refresh": False,
     },
-    # normal dag parameters
     schedule_interval="@daily",
     start_date=datetime(2023, 1, 1),
     catchup=False,
     dag_id="basic_cosmos_dag",
     default_args={"retries": 2},
 )
-# [END local_example]
+

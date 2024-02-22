@@ -23,6 +23,6 @@ dag = DAG(
 
 dbt_debug = BashOperator(
     task_id='dbt_debug',
-    bash_command='cd /opt/airflow/dags/dbt/jaffle && dbt debug --profiles-dir /opt/airflow/dags/dbt/jaffle --project-dir /opt/airflow/dags/dbt/jaffle',
+    bash_command='cd /opt/airflow/dags/dbt/jaffle && dbt docs generate --profiles-dir /opt/airflow/dags/dbt/jaffle --project-dir /opt/airflow/dags/dbt/jaffle',
     dag=dag,
 )
